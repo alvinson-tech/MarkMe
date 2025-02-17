@@ -240,43 +240,111 @@
             letter-spacing: 0.5px;
         }
         @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            .container {
-                padding: 15px;
-            }
-            .title h1 {
-                font-size: 2em;
-            }
-            .datetime {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .datetime-item {
-                width: 100%;
-                box-sizing: border-box;
-            }
-            table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-            th, td {
-                padding: 10px;
-            }
-            .input-section input, 
-            .input-section select {
-                font-size: 14px;
-            }
-            button {
-                width: 100%;
-                margin: 5px 0;
-            }
-            .button-container {
-                flex-direction: column;
-            }
-        }
+    body {
+        padding: 8px;
+    }
+    .container {
+        padding: 12px;
+    }
+    .title h1 {
+        font-size: 1.8em;
+    }
+    .subtitle {
+        font-size: 1em;
+    }
+    .datetime {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .datetime-item {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+    .input-section {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    .input-section input, 
+    .input-section select {
+        font-size: 0.9em;
+        padding: 8px;
+        margin: 5px 0;
+    }
+    .timetable-link {
+        font-size: 0.8em;
+        margin-top: 8px;
+    }
+    table {
+        font-size: 0.9em;
+        margin: 15px 0;
+        width: 100%;
+        table-layout: fixed;
+    }
+    th, td {
+        padding: 8px;
+        font-size: 0.85em;
+    }
+    th:first-child, td:first-child {
+        width: 25%;
+    }
+    th:last-child, td:last-child {
+        width: 15%;
+    }
+    th:nth-child(2), td:nth-child(2) {
+        width: 60%;
+    }
+    .checkbox-wrapper input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+    .attendance-stats {
+        padding: 12px;
+        gap: 10px;
+        margin: 15px 0;
+    }
+    .stat-item {
+        padding: 10px;
+        min-width: 28%;
+    }
+    .stat-label {
+        font-size: 0.8em;
+    }
+    .stat-value {
+        font-size: 1.2em;
+    }
+    button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+        width: 100%;
+        margin: 5px 0;
+    }
+    .button-container {
+        flex-direction: column;
+        gap: 8px;
+        margin: 15px 0;
+    }
+    #report {
+        padding: 15px;
+        font-size: 0.9em;
+        margin-top: 15px;
+    }
+    .success-message {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+    .footer {
+        margin-top: 25px;
+        padding-top: 15px;
+    }
+    .footer .credits {
+        font-size: 0.8em;
+    }
+    .footer .copyright {
+        font-size: 0.7em;
+    }
+}
     </style>
 </head>
 <body>
