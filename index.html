@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✅ MarkMe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Space Mono', monospace;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 20px;
+            background: 
+                linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px) 0 0 / 20px 20px,
+                linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px) 0 0 / 20px 20px,
+                linear-gradient(to right, rgba(0,0,0,0.02) 1px, transparent 1px) 0 0 / 5px 5px,
+                linear-gradient(to bottom, rgba(0,0,0,0.02) 1px, transparent 1px) 0 0 / 5px 5px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 
+                0 4px 20px rgba(0,0,0,0.1),
+                0 0 0 1px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .title h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        .credits {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .copyright {
+            color: #999;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        .datetime {
+            text-align: center;
+            margin: 20px 0;
+            color: #444;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        .datetime-item {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .datetime-label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .input-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .input-section input, .input-section select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-family: 'Space Mono', monospace;
+            transition: border-color 0.3s ease;
+        }
+        .input-section input:focus, .input-section select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        .timetable-link {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .timetable-link:hover {
+            text-decoration: underline;
+        }
+        .attendance-stats {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            min-width: 150px;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 20px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background-color: #f8f8f8;
+            font-weight: bold;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        .checkbox-wrapper {
+            display: flex;
+            justify-content: center;
+        }
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            border: 2px solid #4CAF50;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        input[type="checkbox"]:checked {
+            background-color: #4CAF50;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        button {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-family: 'Space Mono', monospace;
+            box-shadow: 0 2px 10px rgba(76,175,80,0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76,175,80,0.3);
+        }
+        #report {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            margin-top: 20px;
+            display: none;
+            white-space: pre-line;
+        }
+        .success-message {
+            color: #4CAF50;
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(76,175,80,0.1);
+            display: none;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .footer .credits {
+            color: #666;
+            font-size: 0.9em;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .footer .copyright {
+            color: #999;
+            font-size: 0.8em;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+            .title h1 {
+                font-size: 2em;
+            }
+            .datetime {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .datetime-item {
+                width: 100%;
+                box-sizing: border-box;
+            }
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            th, td {
+                padding: 10px;
+            }
+            .input-section input, 
+            .input-section select {
+                font-size: 14px;
+            }
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+            .button-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">
+                <h1>✅ MarkMe</h1>
+            </div>
+            <p class="subtitle">Seamless Attendance, One Click Away ✨</p>
+        </div>
+
+        <div class="datetime">
+            <div class="datetime-item">
+                <span class="datetime-label">Date:</span>
+                <span id="currentDate"></span>
+            </div>
+            <div class="datetime-item">
+                <span class="datetime-label">Time:</span>
+                <span id="currentTime"></span>
+            </div>
+        </div>
+
+        <div class="input-section">
+            <select id="className">
+                <option value="">Select Subject</option>
+                <option value="ADA">ADA</option>
+                <option value="Microcontrollers">Microcontrollers</option>
+                <option value="DBMS">DBMS</option>
+                <option value="Graph Theory">Graph Theory</option>
+                <option value="DBMS">Biology</option>
+                <option value="DBMS">UHV</option>
+                <option value="DBMS">AEC Vertical Lvl 2</option>
+                <option value="DBMS">Yoga</option>
+            </select>
+            <select id="timeSlot">
+                <option value="">Select Time Slot</option>
+                <option value="8:00 AM - 9:00 AM">[1] 8:00 AM - 9:00 AM</option>
+                <option value="9:00 AM - 10:00 AM">[2] 9:30 AM - 10:30 AM</option>
+                <option value="10:00 AM - 11:00 AM">[3] 10:30 AM - 11:30 AM</option>
+                <option value="11:00 AM - 12:00 PM">[4] 11:30 AM - 12:30 PM</option>
+                <option value="1:00 PM - 2:00 PM">[5] 1:30 PM - 2:30 PM</option>
+                <option value="2:30 PM - 3:30 PM">[6] 2:30 PM - 3:30 PM</option>
+            </select>
+            <a href="TT.png" class="timetable-link" download>Click to View/Download Time Table</a>
+        </div>
+
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>USN</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div class="attendance-stats">
+            <div class="stat-item">
+                <div class="stat-label">Total Students</div>
+                <div class="stat-value" id="totalCount">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Present</div>
+                <div class="stat-value" id="presentCount">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Absent</div>
+                <div class="stat-value" id="absentCount">0</div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button onclick="generateReport()">Generate Report</button>
+        </div>
+
+        <div id="report"></div>
+        
+        <div class="button-container">
+            <button onclick="copyReport()" id="copyButton" style="display: none;">Copy Report</button>
+        </div>
+        
+        <div id="copySuccess" class="success-message">Report copied to clipboard!</div>
+
+        <div class="footer">
+            <div class="credits">CODED BY ALVIN</div>
+            <div class="copyright">© 2025 | ALL RIGHTS RESERVED</div>
+        </div>
+    </div>
+
+    <script>
+        // Prevent accidental refresh
+        window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();
+            e.returnValue = '';
+        });
+
+        // Student data
+        const students = [
+            { usn: '1MJ23CS001', name: 'A Lavanya' },
+            { usn: '1MJ23CS002', name: 'A S Binusha' },
+            { usn: '1MJ23CS003', name: 'Aakanksha Anil Kumar' },
+            { usn: '1MJ23CS004', name: 'Abdul Touheed' },
+            { usn: '1MJ23CS005', name: 'Abhishek A' },
+            { usn: '1MJ23CS006', name: 'Abhishek K' },
+            { usn: '1MJ23CS007', name: 'Abhishek S S' },
+            { usn: '1MJ23CS008', name: 'Aditya Suresh Appagundi' },
+            { usn: '1MJ23CS009', name: 'Akash Surendra Ainapur' },
+            { usn: '1MJ23CS010', name: 'Akshata Suresh Vittappanavar' },
+            { usn: '1MJ23CS011', name: 'Akshay H' },
+            { usn: '1MJ23CS012', name: 'Alvin Sonny' },
+            { usn: '1MJ23CS013', name: 'Amulya G Gouda' },
+            { usn: '1MJ23CS014', name: 'Anagha Shree G K' },
+            { usn: '1MJ23CS015', name: 'Ananya Sanjiv' },
+            { usn: '1MJ23CS016', name: 'Aniketha H N' },
+            { usn: '1MJ23CS017', name: 'Ankita Charan Pahadi' },
+            { usn: '1MJ23CS018', name: 'Anushree D S' },
+            { usn: '1MJ23CS019', name: 'Aralur Darshankumar' },
+            { usn: '1MJ23CS020', name: 'Arfa Kulsum' },
+            { usn: '1MJ23CS021', name: 'Arjun Sharma' },
+            { usn: '1MJ23CS022', name: 'Arun' },
+            { usn: '1MJ23CS024', name: 'Aviraj Bhawrha' },
+            { usn: '1MJ23CS025', name: 'Ayush Kumar Sharma' },
+            { usn: '1MJ23CS026', name: 'Balaji R' },
+            { usn: '1MJ23CS027', name: 'Bapugouda Jalikatti' },
+            { usn: '1MJ23CS028', name: 'Basavaraj' },
+            { usn: '1MJ23CS029', name: 'Basavaraj B' },
+            { usn: '1MJ23CS030', name: 'Bharath C' },
+            { usn: '1MJ23CS031', name: 'Bhargavi VR' },
+            { usn: '1MJ23CS032', name: 'Bhavana D S' },
+            { usn: '1MJ23CS033', name: 'C H Chandana Shree' },
+            { usn: '1MJ23CS034', name: 'Chandan D P' },
+            { usn: '1MJ23CS035', name: 'Channabasava' },
+            { usn: '1MJ23CS036', name: 'Chethan Kumar B S' },
+            { usn: '1MJ23CS037', name: 'Chethanashree P' },
+            { usn: '1MJ23CS038', name: 'Chiranth L' },
+            { usn: '1MJ23CS039', name: 'Christy Shephard' },
+            { usn: '1MJ23CS040', name: 'D Manohar' },
+            { usn: '1MJ23CS041', name: 'D Neha' },
+            { usn: '1MJ23CS042', name: 'Danish Khajuria' },
+            { usn: '1MJ23CS043', name: 'Darshan' },
+            { usn: '1MJ23CS044', name: 'Debaditya Das' },
+            { usn: '1MJ23CS045', name: 'DeekShita A U' },
+            { usn: '1MJ23CS046', name: 'Deepthi K M' },
+            { usn: '1MJ23CS047', name: 'Deeraj Ashok Shirahatti' },
+            { usn: '1MJ23CS048', name: 'Dhanush D' },
+            { usn: '1MJ23CS049', name: 'Dhanush Jain A' },
+            { usn: '1MJ23CS050', name: 'Dharshan V' },
+            { usn: '1MJ23CS051', name: 'Dinesh Mange S M' },
+            { usn: '1MJ23CS052', name: 'Disha V O' },
+            { usn: '1MJ23CS053', name: 'E Vandana' },
+            { usn: '1MJ23CS054', name: 'G M Vishwanath' },
+            { usn: '1MJ23CS208', name: 'V Prajwal' },
+            { usn: 'MVJ24CS010', name: 'Chandankumar V' },
+            { usn: 'MVJ24CS012', name: 'Aryha K S' },
+            { usn: 'MVJ24CS014', name: 'Bhavana AV' },
+            { usn: 'MVJ24CS018', name: 'Ayesha Siddiqa' },
+            { usn: 'MVJ24CS022', name: 'D S Vishesh Dhyaan' },
+            { usn: 'MVJ24CS024', name: 'Abhishek Police Patil' },
+            { usn: 'MVJ24CS030', name: 'Akbar Shanoor Nadaf' },
+            { usn: 'MVJ24CS042', name: 'Arpita Suresh Kallihal' },
+            { usn: 'MVJ24CS046', name: 'Abhishek Gouda' },
+            { usn: 'MVJ24CS048', name: 'Darshan B' },
+            { usn: 'MVJ24CS050', name: 'Darshan C' },
+            { usn: 'MVJ24CS052', name: 'Darshan C' },
+            { usn: 'MVJ24CS085', name: 'Bhati Mohammed Inaam' },
+            { usn: 'MVJ24CS086', name: 'Ashish Gupta' },
+            { usn: 'MVJ24CS126', name: 'Abdulaziz Mohammed Yaseen Bepari' },
+            { usn: 'MVJ24CS287', name: 'Mythri Saravana' }
+        ];
+
+        // Initialize
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initialize);
+        } else {
+            initialize();
+        }
+
+        function initialize() {
+            populateTable();
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+        }
+
+        // Populate table with students
+        function populateTable() {
+            const tbody = document.querySelector('#studentTable tbody');
+            tbody.innerHTML = students.map(student => `
+                <tr>
+                    <td>${student.usn}</td>
+                    <td>${student.name}</td>
+                    <td class="checkbox-wrapper">
+                        <input type="checkbox" checked onchange="updateStats()">
+                    </td>
+                </tr>
+            `).join('');
+            updateStats(); // Initial stats update
+        }
+
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('currentDate').textContent = now.toLocaleDateString();
+            document.getElementById('currentTime').textContent = now.toLocaleString('en-US', {
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                hour12: true
+            });
+        }
+
+        function updateStats() {
+            const checkboxes = document.querySelectorAll('table input[type="checkbox"]');
+            const totalStudents = checkboxes.length;
+            const presentCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const absentCount = totalStudents - presentCount;
+
+            document.getElementById('totalCount').textContent = totalStudents;
+            document.getElementById('presentCount').textContent = presentCount;
+            document.getElementById('absentCount').textContent = absentCount;
+        }
+
+        function generateReport() {
+            const className = document.getElementById('className').value;
+            const timeSlot = document.getElementById('timeSlot').value;
+            const checkboxes = document.querySelectorAll('table input[type="checkbox"]');
+            const rows = document.querySelectorAll('table tbody tr');
+            
+            let absentees = [];
+
+            rows.forEach((row, index) => {
+                if (!checkboxes[index].checked) {
+                    const usn = row.cells[0].textContent;
+                    const name = row.cells[1].textContent;
+                    absentees.push(`${usn} - ${name}`);
+                }
+            });
+
+            const currentDate = new Date().toLocaleDateString();
+            const currentTime = new Date().toLocaleString('en-US', {
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true
+            });
+
+            const report = `✅ MarkMe
+    Seamless Attendance, One Click Away ✨
+
+    📍 Date: ${currentDate}
+
+    📋 List of Absentees for ${className} during ${timeSlot}:
+    ${absentees.map((student, index) => `${index + 1}. ${student}`).join('\n')}
+
+    --------------------------------
+    Coded by Alvin
+    © 2025 | All Rights Reserved`;
+
+            document.getElementById('report').style.display = 'block';
+            document.getElementById('report').innerText = report;
+            document.getElementById('copyButton').style.display = 'block';
+        }
+
+        function copyReport() {
+            const reportText = document.getElementById('report').innerText;
+            navigator.clipboard.writeText(reportText).then(() => {
+                const successMessage = document.getElementById('copySuccess');
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
